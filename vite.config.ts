@@ -1,4 +1,5 @@
-import {defineConfig} from 'vite';
+/** @type {import('@remix-pwa/dev').WorkerConfig} */
+import { defineConfig } from 'vite';
 import {hydrogen} from '@shopify/hydrogen/vite';
 import {oxygen} from '@shopify/mini-oxygen/vite';
 import {vitePlugin as remix} from '@remix-run/dev';

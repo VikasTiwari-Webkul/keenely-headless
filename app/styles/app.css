@@ -8,9 +8,7 @@
   --color-light: #fff;
 }
 
-img {
-  border-radius: 4px;
-}
+
 
 /*
 * --------------------------------------------------
@@ -81,7 +79,7 @@ aside li {
   transition: opacity 400ms ease-in-out;
   transition: opacity 400ms;
   visibility: hidden;
-  z-index: 10;
+  z-index: 100;
 }
 
 .overlay .close-outside {
@@ -491,4 +489,16 @@ h4 {
   header {
     position: relative;
   }
+}
+
+
+.overlay_backdrop {
+  width:100%;
+  position: relative;
+  animation: mymove 1.8s;
+}
+
+@keyframes mymove {
+  from {top: 60px;}
+  to {top: 0px;}
 }

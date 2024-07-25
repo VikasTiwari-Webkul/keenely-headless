@@ -16,9 +16,9 @@ import PopularProduct from '@keenly/components/homepage/PopularProduct';
 import DiscoverStyleBanner from '@keenly/components/homepage/DiscoverStyleBanner';
 import TodayDeals from '~/components/homepage/TodayDeals';
 
-// const RecentlyViewProductSection = lazy(
-//   () => import('../components/homepage/RecentlyViewedProducts'),
-// );
+const RecentlyViewProductSection = lazy(
+  () => import('../components/homepage/RecentlyViewedProducts'),
+);
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -69,8 +69,8 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 }
 
 export default function Homepage() {
-  const data = useLoaderData<typeof loader>();
-
+  const data = useLoaderData<typeof loader>();  
+  
   return (
     <div className="home flex flex-col tablet:gap-y-6 desk-sec:gap-y-6">
       <div>
@@ -92,39 +92,17 @@ export default function Homepage() {
       </Suspense>
       <DiscoverStyleSlider />
       <PopularCategories />
-{/*       <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={data.recommendedProducts}>
           {(response: any) => (
             <RecentlyViewProductSection products={response.products} />
           )}
         </Await>
-      </Suspense> */}
-      <TrustBanner />
+      </Suspense>
     </div>
   );
 }
 
-// function FeaturedCollection({
-//   collection,
-// }: {
-//   collection: FeaturedCollectionFragment;
-// }) {
-//   if (!collection) return null;
-//   const image = collection?.image;
-//   return (
-//     <Link
-//       className="featured-collection"
-//       to={`/collections/${collection.handle}`}
-//     >
-//       {image && (
-//         <div className="featured-collection-image">
-//           <Image data={image} sizes="100vw" />
-//         </div>
-//       )}
-//       <h1>{collection.title}</h1>
-//     </Link>
-//   );
-// }
 
 function RecommendedProducts({
   products,
@@ -166,7 +144,7 @@ function RecommendedProducts({
   );
 }
 
-const FEATURED_COLLECTION_QUERY = `#graphql
+export const FEATURED_COLLECTION_QUERY = `#graphql
   fragment FeaturedCollection on Collection {
     id
     title

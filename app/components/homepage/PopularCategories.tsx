@@ -1,18 +1,11 @@
 import {isValidArray} from '~/utils/helper';
 import SectionHeader from '../elements/SectionHeader';
-import Typography from '../elements/Typography';
 import PopularCategoryCard from './PopularCategoryCard';
-
+import {PopularCategoriesData} from '~/utils/contant';
 const PopularCategories = () => {
-  const placeHolder = new Array(12).fill(Math.random());
-
   return (
     <div className="w-full">
-      <div
-        className="w-full pt-4 pb-8 px-2 flex flex-col gap-y-2 justify-center tablet:pt-2 tablet:px-4 tablet:pb-4 desk-pri:px-20 desk-pri:py-10
-      desk-sec:py-10 desk-sec:px-40 
-      "
-      >
+      <div className="w-full pt-4 pb-8 px-2 flex flex-col gap-y-2 justify-center tablet:pt-2 tablet:px-4 tablet:pb-4 desk-pri:px-20 desk-pri:py-10 desk-sec:py-10 desk-sec:px-40 ">
         <div className="">
           <SectionHeader title="Popular Categories" url="/" />
         </div>
@@ -21,9 +14,16 @@ const PopularCategories = () => {
         desk-sec:gap-x-[30px] desk-sec:gap-y-4
         "
         >
-          {isValidArray(placeHolder) &&
-            placeHolder.map((item, index) => {
-              return <PopularCategoryCard key={index} />;
+          {isValidArray(PopularCategoriesData) &&
+            PopularCategoriesData.map((item) => {
+              return (
+                <PopularCategoryCard
+                  title={item.title}
+                  image={item.image}
+                  url={item.url}
+                  key={item.id}
+                />
+              );
             })}
         </div>
       </div>

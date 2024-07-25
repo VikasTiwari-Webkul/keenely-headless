@@ -23,6 +23,7 @@ export default {
         'gray-50': withOpacityValue('--gray-50'),
         white: '#FFFFFF',
         'div-col': withOpacityValue('--divider-color'),
+        'blue-col':withOpacityValue('--blue-col')
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],

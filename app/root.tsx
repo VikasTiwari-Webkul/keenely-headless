@@ -19,7 +19,7 @@ import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import tailwindStyleSheet from '~/styles/tailwind.css?url';
 import customStyle from '~/styles/custom.css?url';
 import 'swiper/css';
-
+import { useSWEffect } from "@remix-pwa/sw";
 
 export type RootLoader = typeof loader;
 
@@ -57,6 +57,10 @@ export function links() {
     {
       rel: 'preconnect',
       href: 'https://shop.app',
+    },
+    {
+      rel: 'manifest',
+      href:'/manifest.json'
     },
     { rel: 'icon', type: 'image/svg+xml', href: favicon },
   ];
@@ -147,6 +151,7 @@ function Layout({children}: {children?: React.ReactNode}) {
   const nonce = useNonce();
   const data = useRouteLoaderData<RootLoader>('root');
 
+
   return (
     <html lang="en">
       <head>
@@ -175,6 +180,8 @@ function Layout({children}: {children?: React.ReactNode}) {
 }
 
 export default function App() {
+  useSWEffect();
+
   return (
     <Layout>
       <Outlet />

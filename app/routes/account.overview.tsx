@@ -1,12 +1,10 @@
+import {useState} from 'react';
 import AccountInfoSection from '@keenly/components/accounts/AccountInfo';
-import AccountNavMenuTab from '@keenly/components/accounts/AccountNavMenuTab';
 import {TabButton} from '@keenly/components/elements/Buttons';
 import MobileBackDrop from '@keenly/components/elements/MobileBackDrop';
-import Typography from '@keenly/components/elements/Typography';
-import {Outlet} from '@remix-run/react';
-import {useState} from 'react';
+import AccountNavMenuTab from '@keenly/components/accounts/AccountNavMenuTab';
 
-export default function AccountLayout() {
+export default function AccountOverView() {
   const [show, setShow] = useState(false);
 
   return (
@@ -19,7 +17,7 @@ export default function AccountLayout() {
               setShow((show) => !show);
             }}
           />
-          <Outlet />
+          <AccountInfoSection />
         </div>
       </div>
       <MobileBackDrop

@@ -25,6 +25,7 @@
   --homepage-collection-list-width-mobile: 25.7142857143rem;
   --divider-color: 217, 217, 217;
   --featured-collection-height: 36.6625rem;
+  --blue-col: 47, 128, 237;
 }
 
 @font-face {
@@ -55,7 +56,7 @@
   font-optical-sizing: auto;
   font-style: medium;
   src: local(''), url('/public/fonts/Roboto-Medium.woff') format('woff2'),
-  .roboto {
+    .roboto {
     font-family: 'Roboto';
   }
 }
@@ -64,26 +65,31 @@
   border-top: 1px solid rgba(var(--gray-200));
 }
 
+.underline-hover {
+  a {
+    position: relative;
+    color: #000;
+    text-decoration: none;
+  }
 
-swiper {
-  width: 100%;
-  height: 100%;
-}
+  a:hover {
+    color: #000;
+  }
 
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
+  a::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    bottom: -6px;
+    left: 0;
+    background-color: rgba(var(--gray-400));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
 
-  /* Center slide text vertically */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  a:hover::before {
+    transform: scaleX(1);
+  }
 }
