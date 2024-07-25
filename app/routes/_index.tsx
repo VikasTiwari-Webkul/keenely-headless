@@ -16,9 +16,9 @@ import PopularProduct from '@keenly/components/homepage/PopularProduct';
 import DiscoverStyleBanner from '@keenly/components/homepage/DiscoverStyleBanner';
 import TodayDeals from '~/components/homepage/TodayDeals';
 
-const RecentlyViewProductSection = lazy(
-  () => import('../components/homepage/RecentlyViewedProducts'),
-);
+// const RecentlyViewProductSection = lazy(
+//   () => import('../components/homepage/RecentlyViewedProducts'),
+// );
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -92,13 +92,13 @@ export default function Homepage() {
       </Suspense>
       <DiscoverStyleSlider />
       <PopularCategories />
-      <Suspense fallback={<div>Loading...</div>}>
+{/*       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={data.recommendedProducts}>
           {(response: any) => (
             <RecentlyViewProductSection products={response.products} />
           )}
         </Await>
-      </Suspense>
+      </Suspense> */}
       <TrustBanner />
     </div>
   );
