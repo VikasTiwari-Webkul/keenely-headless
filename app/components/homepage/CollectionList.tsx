@@ -1,7 +1,7 @@
 import {isValidArray} from '~/utils/helper';
 import {Image} from '@shopify/hydrogen';
 import type {FeaturedCollectionFragment} from 'storefrontapi.generated';
-import Thumbnails from '../elements/Thumbnail';
+// import Thumbnails from '../elements/Thumbnail';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import Typography from '../elements/Typography';
 
@@ -17,7 +17,7 @@ const CollectionList = ({
       slides.push(
         <SwiperSlide key={item.id}>
           <div className="w-full flex flex-col justify-center items-center gap-y-1">
-            {item.image && (
+{/*             {item.image && (
               <Thumbnails
                 data={item.image}
                 alt={item.image.altText || `${item.handle}_img`}
@@ -25,7 +25,7 @@ const CollectionList = ({
                 width={100}
                 height={100}
               />
-            )}
+            )} */}
             <Typography variant="h5-mob" className="text-gray-950">
               {item.title}
             </Typography>
