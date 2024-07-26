@@ -15,7 +15,7 @@ export const CUSTOMER_ORDER_QUERY = `#graphql
       }
     }
   }
-  fragment OrderLineItemFull on LineItem {
+  fragment OrderLineItemFull on OrderLineItemConnection {
     id
     title
     quantity
@@ -45,21 +45,18 @@ export const CUSTOMER_ORDER_QUERY = `#graphql
   fragment Order on Order {
     id
     name
-    statusPageUrl
+    statusUrl
     processedAt
-    fulfillments(first: 1) {
-      nodes {
-        status
-      }
-    }
+    fulfillmentStatus
     totalTax {
       ...OrderMoney
     }
     totalPrice {
       ...OrderMoney
     }
-    subtotal {
-      ...OrderMoney
+    
+    subtotalPrice {
+      ..OrderMoney
     }
     shippingAddress {
       name
@@ -78,7 +75,7 @@ export const CUSTOMER_ORDER_QUERY = `#graphql
     }
   }
   query Order($orderId: ID!) {
-    order(id: $orderId) {
+      node(id: $orderId) {
       ... on Order {
         ...Order
       }

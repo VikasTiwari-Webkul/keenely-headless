@@ -80,8 +80,6 @@ function MobileFooterMenu({
   publicStoreDomain: string;
   copyRight: React.ReactNode;
 }) {
-  const routeMatcher = useMatches();
-  const isAtHomepage = routeMatcher[1]?.pathname === '/' ?? false;
   
   return (
     <div className="flex-col h-full pb-14 hidden mobile:flex">
@@ -159,8 +157,6 @@ function FooterMenu({
   copyRight: React.ReactNode;
   }) {
   
-  const routeMatcher = useMatches();
-  const isAtHomepage = routeMatcher?.[1].pathname === "/" ?? false;
 
   return (
     <nav role="navigation" className="tablet:pb-16 mobile:hidden">

@@ -32,10 +32,7 @@
   font-family: 'Inter', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  src: local(''), url('/public/fonts/Inter-Bold.woff2') format('woff2'),
-    /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url('/public/fonts/Inter-Bold.woff2') format('woff2'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-
+  src:url('/fonts/Inter-Bold.woff2'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   .inter {
     font-family: 'Inter', sans-serif;
   }
@@ -45,7 +42,7 @@
   font-family: 'Poppins', sans-serif;
   font-optical-sizing: auto;
   font-style: medium;
-  src: local(''), url('/public/fonts/Poppins-Medium.woff') format('woff2'),
+  src:url('/fonts/Poppins-Medium.woff'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */ .poppins {
     font-family: 'Poppins', sans-serif;
   }
@@ -55,8 +52,8 @@
   font-family: 'Roboto';
   font-optical-sizing: auto;
   font-style: medium;
-  src: local(''), url('/public/fonts/Roboto-Medium.woff') format('woff2'),
-    .roboto {
+  src:url('/fonts/Roboto-Medium.woff'),
+  .roboto {
     font-family: 'Roboto';
   }
 }

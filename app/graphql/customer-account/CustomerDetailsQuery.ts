@@ -31,8 +31,10 @@ export const CUSTOMER_FRAGMENT = `#graphql
 
 // NOTE: https://shopify.dev/docs/api/customer/latest/queries/customer
 export const CUSTOMER_DETAILS_QUERY = `#graphql
-  query CustomerDetails {
-    customer {
+  query CustomerDetails(
+    customerAccessToken:String!
+  ) {
+    customer({customerAccessToken:$customerAccessToken}) {
       ...Customer
     }
   }

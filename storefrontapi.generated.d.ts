@@ -3,6 +3,55 @@
 /* eslint-disable */
 import type * as StorefrontAPI from '@shopify/hydrogen/storefront-api-types';
 
+export type OrderItemFragment = Pick<
+  StorefrontAPI.Order,
+  'financialStatus' | 'id' | 'orderNumber' | 'processedAt'
+> & {totalPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>};
+
+export type CustomerOrdersFragment = {
+  orders: {
+    nodes: Array<
+      Pick<
+        StorefrontAPI.Order,
+        'financialStatus' | 'id' | 'orderNumber' | 'processedAt'
+      > & {totalPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>}
+    >;
+    pageInfo: Pick<
+      StorefrontAPI.PageInfo,
+      'hasPreviousPage' | 'hasNextPage' | 'endCursor' | 'startCursor'
+    >;
+  };
+};
+
+export type CustomerOrdersQueryVariables = StorefrontAPI.Exact<{
+  endCursor?: StorefrontAPI.InputMaybe<
+    StorefrontAPI.Scalars['String']['input']
+  >;
+  first?: StorefrontAPI.InputMaybe<StorefrontAPI.Scalars['Int']['input']>;
+  last?: StorefrontAPI.InputMaybe<StorefrontAPI.Scalars['Int']['input']>;
+  startCursor?: StorefrontAPI.InputMaybe<
+    StorefrontAPI.Scalars['String']['input']
+  >;
+  customerAccessToken: StorefrontAPI.Scalars['String']['input'];
+}>;
+
+export type CustomerOrdersQuery = {
+  customer?: StorefrontAPI.Maybe<{
+    orders: {
+      nodes: Array<
+        Pick<
+          StorefrontAPI.Order,
+          'financialStatus' | 'id' | 'orderNumber' | 'processedAt'
+        > & {totalPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>}
+      >;
+      pageInfo: Pick<
+        StorefrontAPI.PageInfo,
+        'hasPreviousPage' | 'hasNextPage' | 'endCursor' | 'startCursor'
+      >;
+    };
+  }>;
+};
+
 export type MoneyFragment = Pick<
   StorefrontAPI.MoneyV2,
   'currencyCode' | 'amount'
@@ -296,6 +345,32 @@ export type RecommendedProductFragment = Pick<
       Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
     >;
   };
+  variants: {
+    nodes: Array<
+      Pick<
+        StorefrontAPI.ProductVariant,
+        'availableForSale' | 'id' | 'sku' | 'title'
+      > & {
+        compareAtPrice?: StorefrontAPI.Maybe<
+          Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+        >;
+        image?: StorefrontAPI.Maybe<
+          {__typename: 'Image'} & Pick<
+            StorefrontAPI.Image,
+            'id' | 'url' | 'altText' | 'width' | 'height'
+          >
+        >;
+        price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+        product: Pick<StorefrontAPI.Product, 'title' | 'handle'>;
+        selectedOptions: Array<
+          Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+        >;
+        unitPrice?: StorefrontAPI.Maybe<
+          Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+        >;
+      }
+    >;
+  };
 };
 
 export type RecommendedProductsQueryVariables = StorefrontAPI.Exact<{
@@ -321,9 +396,31 @@ export type RecommendedProductsQuery = {
             >
           >;
         };
-
         variants: {
-          nodes: Array<Pick<StorefrontAPI.ProductVariant, "id", 'image', 'title'>>;
+          nodes: Array<
+            Pick<
+              StorefrontAPI.ProductVariant,
+              'availableForSale' | 'id' | 'sku' | 'title'
+            > & {
+              compareAtPrice?: StorefrontAPI.Maybe<
+                Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+              >;
+              image?: StorefrontAPI.Maybe<
+                {__typename: 'Image'} & Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
+              >;
+              price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+              product: Pick<StorefrontAPI.Product, 'title' | 'handle'>;
+              selectedOptions: Array<
+                Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+              >;
+              unitPrice?: StorefrontAPI.Maybe<
+                Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+              >;
+            }
+          >;
         };
       }
     >;
@@ -1128,54 +1225,11 @@ export type SearchQuery = {
   };
 };
 
-
-/** Represents an image resource. */
-export type Image = {
-  __typename?: 'Image';
-  /** A word or phrase to share the nature or contents of an image. */
-  altText?: Maybe<Scalars['String']['output']>;
-  /** The original height of the image in pixels. Returns `null` if the image isn't hosted by Shopify. */
-  height?: Maybe<Scalars['Int']['output']>;
-  /** A unique ID for the image. */
-  id?: Maybe<Scalars['ID']['output']>;
-  /**
-   * The location of the original image as a URL.
-   *
-   * If there are any existing transformations in the original source URL, they will remain and not be stripped.
-   *
-   * @deprecated Use `url` instead.
-   */
-  originalSrc: Scalars['URL']['output'];
-  /**
-   * The location of the image as a URL.
-   * @deprecated Use `url` instead.
-   */
-  src: Scalars['URL']['output'];
-  /**
-   * The location of the transformed image as a URL.
-   *
-   * All transformation arguments are considered "best-effort". If they can be applied to an image, they will be.
-   * Otherwise any transformations which an image type doesn't support will be ignored.
-   *
-   * @deprecated Use `url(transform:)` instead
-   */
-  transformedSrc: Scalars['URL']['output'];
-  /**
-   * The location of the image as a URL.
-   *
-   * If no transform options are specified, then the original image will be preserved including any pre-applied transforms.
-   *
-   * All transformation options are considered "best-effort". Any transformation that the original image type doesn't support will be ignored.
-   *
-   * If you need multiple variations of the same image, then you can use [GraphQL aliases](https://graphql.org/learn/queries/#aliases).
-   *
-   */
-  url: Scalars['URL']['output'];
-  /** The original width of the image in pixels. Returns `null` if the image isn't hosted by Shopify. */
-  width?: Maybe<Scalars['Int']['output']>;
-};
-
 interface GeneratedQueryTypes {
+  '#graphql\n  #graphql\n  fragment CustomerOrders on Customer {\n    orders(\n      sortKey: PROCESSED_AT,\n      reverse: true,\n      first: $first,\n      last: $last,\n      before: $startCursor,\n      after: $endCursor\n    ) {\n      nodes {\n        ...OrderItem\n      }\n      pageInfo {\n        hasPreviousPage\n        hasNextPage\n        endCursor\n        startCursor\n      }\n    }\n  }\n  #graphql\n  fragment OrderItem on Order {\n    totalPrice {\n      amount\n      currencyCode\n    }\n    financialStatus\n    id\n    orderNumber\n    processedAt\n  }\n\n\n  query CustomerOrders(\n    $endCursor: String\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $customerAccessToken: String!\n  ) {\n    customer(customerAccessToken:$customerAccessToken) {\n      ...CustomerOrders\n    }\n  }\n': {
+    return: CustomerOrdersQuery;
+    variables: CustomerOrdersQueryVariables;
+  };
   '#graphql\n  fragment Shop on Shop {\n    id\n    name\n    description\n    primaryDomain {\n      url\n    }\n    brand {\n      logo {\n        image {\n          url\n        }\n      }\n    }\n  }\n  query Header(\n    $country: CountryCode\n    $headerMenuHandle: String!\n    $language: LanguageCode\n  ) @inContext(language: $language, country: $country) {\n    shop {\n      ...Shop\n    }\n    menu(handle: $headerMenuHandle) {\n      ...Menu\n    }\n  }\n  #graphql\n  fragment MenuItem on MenuItem {\n    id\n    resourceId\n    tags\n    title\n    type\n    url\n  }\n  fragment ChildMenuItem on MenuItem {\n    ...MenuItem\n  }\n  fragment ParentMenuItem on MenuItem {\n    ...MenuItem\n    items {\n      ...ChildMenuItem\n    }\n  }\n  fragment Menu on Menu {\n    id\n    items {\n      ...ParentMenuItem\n    }\n  }\n\n': {
     return: HeaderQuery;
     variables: HeaderQueryVariables;
@@ -1192,11 +1246,11 @@ interface GeneratedQueryTypes {
     return: SitemapQuery;
     variables: SitemapQueryVariables;
   };
-  '#graphql\n  fragment FeaturedCollection on Collection {\n    id\n    title\n    image {\n      id\n      url\n      altText\n      width\n      height\n    }\n    handle\n  }\n  query FeaturedCollection($country: CountryCode, $language: LanguageCode)\n    @inContext(country: $country, language: $language) {\n    collections(first: 1, sortKey: UPDATED_AT, reverse: true) {\n      nodes {\n        ...FeaturedCollection\n      }\n    }\n  }\n': {
+  '#graphql\n  fragment FeaturedCollection on Collection {\n    id\n    title\n    image {\n      id\n      url\n      altText\n      width\n      height\n    }\n    handle\n  }\n  query FeaturedCollection($country: CountryCode, $language: LanguageCode)\n    @inContext(country: $country, language: $language) {\n    collections(first: 10) {\n      nodes {\n        ...FeaturedCollection\n      }\n    }\n  }\n': {
     return: FeaturedCollectionQuery;
     variables: FeaturedCollectionQueryVariables;
   };
-  '#graphql\n  fragment RecommendedProduct on Product {\n    id\n    title\n    handle\n    priceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n    images(first: 1) {\n      nodes {\n        id\n        url\n        altText\n        width\n        height\n      }\n    }\n  }\n  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)\n    @inContext(country: $country, language: $language) {\n    products(first: 4, sortKey: UPDATED_AT, reverse: true) {\n      nodes {\n        ...RecommendedProduct\n      }\n    }\n  }\n': {
+  '#graphql\n  fragment RecommendedProduct on Product {\n    id\n    title\n    handle\n    priceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n    images(first: 1) {\n      nodes {\n        id\n        url\n        altText\n        width\n        height\n      }\n    }\n    variants(first: 3) {\n      nodes {\n        ...ProductVariant\n      }\n    }\n  }\n  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)\n    @inContext(country: $country, language: $language) {\n    products(first: 4, sortKey: UPDATED_AT, reverse: true) {\n      nodes {\n        ...RecommendedProduct\n      }\n    }\n  }\n\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n': {
     return: RecommendedProductsQuery;
     variables: RecommendedProductsQueryVariables;
   };
@@ -1260,6 +1314,3 @@ declare module '@shopify/hydrogen' {
   interface StorefrontQueries extends GeneratedQueryTypes {}
   interface StorefrontMutations extends GeneratedMutationTypes {}
 }
-
-export { StorefrontAPI };
-

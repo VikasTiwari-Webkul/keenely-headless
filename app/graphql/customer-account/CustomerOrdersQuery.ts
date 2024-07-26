@@ -6,13 +6,8 @@ export const ORDER_ITEM_FRAGMENT = `#graphql
       currencyCode
     }
     financialStatus
-    fulfillments(first: 1) {
-      nodes {
-        status
-      }
-    }
     id
-    number
+    orderNumber
     processedAt
   }
 ` as const;
@@ -50,8 +45,9 @@ export const CUSTOMER_ORDERS_QUERY = `#graphql
     $first: Int
     $last: Int
     $startCursor: String
+    $customerAccessToken: String!
   ) {
-    customer {
+    customer(customerAccessToken:$customerAccessToken) {
       ...CustomerOrders
     }
   }
